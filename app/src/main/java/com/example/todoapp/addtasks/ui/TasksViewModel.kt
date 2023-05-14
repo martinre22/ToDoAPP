@@ -1,6 +1,7 @@
 package com.example.todoapp.addtasks.ui
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,16 +13,22 @@ class TasksViewModel @Inject constructor() : ViewModel() {
 
     private var _showDialog = MutableLiveData<Boolean>()
     val showDialog: LiveData<Boolean> = _showDialog
+
+    private var _listTasks = mutableStateListOf<TaskModelUI>()
+    val listTasks: List<TaskModelUI> = _listTasks
     fun onDialogClose() {
         _showDialog.value = false
     }
 
     fun onTaskCreated(task: String) {
         _showDialog.value = false
-        Log.i("tag", task)
+        _listTasks.add(TaskModelUI(task = task))
     }
 
     fun onShowDialogCLick() {
         _showDialog.value = true
+    }
+
+    fun onCheckBoxSelected(taskModelUI: TaskModelUI) {
     }
 }
