@@ -1,6 +1,5 @@
 package com.example.todoapp.addtasks.ui
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
@@ -116,13 +115,13 @@ private fun ItemTask(taskModelUI: TaskModelUI, viewModel: TasksViewModel) {
     Card(
         Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 2.dp)
+            .padding(horizontal = 8.dp, vertical = 6.dp)
             .pointerInput(Unit) {
                 detectTapGestures(onLongPress = {
                     viewModel.onItemRemove(taskModelUI)
                 })
             },
-        elevation = 3.dp
+        elevation = 4.dp
     ) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = CenterVertically) {
             Text(
