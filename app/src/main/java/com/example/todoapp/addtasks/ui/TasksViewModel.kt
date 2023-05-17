@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todoapp.addtasks.domain.AddTaskUseCase
+import com.example.todoapp.addtasks.domain.DeleteTaskUseCase
 import com.example.todoapp.addtasks.domain.GetTasksUseCase
 import com.example.todoapp.addtasks.domain.UpdateTaskUseCase
 import com.example.todoapp.addtasks.ui.TaskUiState.Error
@@ -23,7 +24,8 @@ import javax.inject.Inject
 class TasksViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
     getTasksUseCase: GetTasksUseCase,
-    private val updateTaskUseCase: UpdateTaskUseCase
+    private val updateTaskUseCase: UpdateTaskUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase
 ) : ViewModel() {
 
     val uiState: StateFlow<TaskUiState> = getTasksUseCase().map(::Success)
@@ -55,8 +57,8 @@ class TasksViewModel @Inject constructor(
     }
 
     fun onItemRemove(taskModelUI: TaskModelUI) {
-        // borrar item
-        //    val task = _listTasks.find { it.idTask == taskModelUI.idTask }
-        //   _listTasks.remove(task)
+        viewModelScope.launch {
+            deleteTaskUseCase(taskModelUI)
+        }
     }
 }
